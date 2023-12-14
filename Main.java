@@ -1,18 +1,19 @@
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
-public class Main {
+public class InventoryManagementSystem {
     private static Map<String, Product> inventory = new HashMap<>();
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.println("\n1. Add Product\n2. Sell Product\n3. View Inventory\n4. Exit");
+            System.out.println("\n1. Add Product\n2. Sell Product\n3. View Inventory\n4. Generate Reports\n5. Exit");
             System.out.print("Select an option: ");
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume the newline character
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
@@ -25,6 +26,9 @@ public class Main {
                     viewInventory();
                     break;
                 case 4:
+                    generateReports();
+                    break;
+                case 5:
                     System.out.println("Exiting...");
                     System.exit(0);
                     break;
@@ -78,27 +82,43 @@ public class Main {
         }
     }
 
+    private static void generateReports() {
+        System.out.println("\nBest-Selling Products Report:");
+        inventory.values().stream()
+                .sorted((p1, p2) -> Integer.compare(p2.getTotalSold(), p1.getTotalSold()))
+                .limit(5) // Display the top 5 best-selling products
+                .forEach(product -> System.out.println(product.getName() + " - Quantity Sold: " + product.getTotalSold()));
+        int lowStockThreshold = 10; 
+        System.out.println("\nLow-Stock products Report:");
+        inventory.values().stream()
+                .filter(product -> product.getQuantity() < lowStockThreshold)
+                .forEach(product -> System.out.println(product.getName() + " -Quantiy instock: " + product.getQuantity()));
+    }
+
     static class Product {
         private String name;
         private int quantity;
         private double price;
+        private int totalSold;
 
         public Product(String name, int quantity, double price) {
             this.name = name;
             this.quantity = quantity;
             this.price = price;
+            this.totalSold = 0;
         }
 
         public void sell(int quantitySold) {
             if (quantitySold <= quantity) {
                 quantity -= quantitySold;
+                totalSold += quantitySold;
             } else {
-                System.out.println("Error: Trying to sell more quantity than available.");
+                System.out.println("Error: trying to sell more quantity than available.");
             }
         }
 
         public String toString() {
-            return "Product: " + name + ", Quantity: " + quantity + ", Price: $" + price;
+            return "Product: " + name + ", Quantity: " + quantity + ", Price: " + price;
         }
 
         public int getQuantity() {
@@ -107,6 +127,14 @@ public class Main {
 
         public double getPrice() {
             return price;
+        }
+
+        public int getTotalSold() {
+            return totalSold;
+        }
+
+        public String getName() {
+            return name;
         }
     }
 }
