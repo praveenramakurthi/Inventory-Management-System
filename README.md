@@ -31,3 +31,22 @@
    getTotalSold(): Returns the total units sold for the product.
    getName(): Returns the name of the product.
  
+**IMAGES**
+![image](https://github.com/praveenramakurthi/Inventory-Management-System/assets/81426194/6401eb7e-f454-4a50-b4d9-43e7d4f278e5)
+![SC2](https://github.com/praveenramakurthi/Inventory-Management-System/assets/81426194/168a8279-abea-4ff1-a499-1ccd2353f53e)
+
+![SC3](https://github.com/praveenramakurthi/Inventory-Management-System/assets/81426194/656cf83a-0c74-4cab-b386-d7a3413e842c)
+
+![SC4](https://github.com/praveenramakurthi/Inventory-Management-System/assets/81426194/63ec0a56-cd0d-48d0-8c83-7cdd8a75cba2)
+
+
+
+
+
+
+
+
+
+
+
+
